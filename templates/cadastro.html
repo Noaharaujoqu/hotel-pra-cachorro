@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Hotel Para Cachorros</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>🐕 Cadastro</h1>
+            <form action="/cadastroPost" method="POST">
+                <input type="text" placeholder="Nome completo" name="nome" required>
+                <input type="email" placeholder="E-mail" name="email" required>
+                <input type="tel" placeholder="Telefone" name="tel" required>
+                <input type="password" placeholder="Senha" name="senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <div id="inicio">
+                <p class="auth-link">Já tem conta? <a href="/loginGet">Faça login</a></p>
+                <p class="auth-link"><a href="/">Voltar</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

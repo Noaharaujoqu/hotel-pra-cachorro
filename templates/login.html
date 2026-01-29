@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hotel Para Cachorros</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>🐕 Login</h1>
+            {% with msg = get_flashed_messages() %}
+                {% if msg %}
+                    {% for m in msg %}
+                        <p style="color: green;text-align:center;font-size:25px;">{{ m }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/loginPost" method="POST">
+                <input type="email" placeholder="E-mail" name="email" required>
+                <input type="password" placeholder="Senha" name="senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <div id="inicio">
+                <p class="auth-link">Não tem conta? <a href="/cadastroGet">Cadastre-se</a></p>
+                <p class="auth-link"><a href="/">Voltar</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

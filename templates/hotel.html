@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Para Cachorros</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>🐕 Hotel Para Cachorros</h1>
+                <p>O melhor lugar para seu melhor amigo!</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="sobre">
+            <h2>Sobre Nós</h2>
+            <p>Oferecemos hospedagem com carinho e cuidado para seu pet enquanto você está fora.</p>
+        </section>
+
+        <section class="disponibilidade">
+            <h2 style="text-align: center;">Disponibilidade de Hospedagem</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Vagas Disponíveis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if reservas %}
+                        {% for r in reservas %}
+                            <tr>
+                                <td>{{ r['data'] }}</td>
+                                <td>{{ r['vagas_disponiveis']}} vagas</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                            <p style="text-align: center; font-size:25px;">Não há vagas disponíveis.</p>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+
+        <section class="servicos">
+            <h2 style="text-align: center;">Nossos Serviços</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Hospedagem Diária</h3>
+                    <p>R$ 80/dia</p>
+                </div>
+                <div class="card">
+                    <h3>Banho e Tosa</h3>
+                    <p>R$ 60</p>
+                </div>
+                <div class="card">
+                    <h3>Passeios</h3>
+                    <p>R$ 30</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="reserva">
+            <h2 style="text-align: center;">Faça sua Reserva</h2>
+            <form action="/reservaPost" method="POST">
+                <input type="text" placeholder="Nome do cachorro" name="nomepet" required>
+                <input type="text" placeholder="Raça do cachorro" name="raca" required>
+                <input type="number" placeholder="Idade do cachorro" name="idade" required>
+                <input type="date" placeholder="Data" name="datareserva" required>
+                <button type="submit">Reservar</button>
+                {% with msg = get_flashed_messages() %}
+                    {% if msg %}
+                        {% for m in msg %}
+                            <p style="text-align: center; font-size:25px;">{{ m }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </form>
+        </section>
+
+        <section class="disponibilidade">
+            {% if reservasUser %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Nome do pet</th>
+                            <th>Raça</th>
+                            <th>Idade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in reservasUser %}
+                            <tr>
+                                <td>{{ r['data_reserva'] }}</td>
+                                <td>{{ r['nomepet']}}</td>
+                                <td>{{ r['raca']}}</td>
+                                <td>{{ r['idade']}}</td>
+                                <td> <form action="/cancelarPost" method="post">
+                                    <button>Cancelar</button>
+                                    <input type="hidden" name="idreserva" value="{{ r['id'] }}">
+                                </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="text-align: center; font-size:25px;">Você ainda não fez nenhuma reserva.</p>
+            {% endif %}
+        </section>
+    </main>
+    <form action="/sairGet" style="margin-bottom: 50px;"><button>Sair</button></form>
+    <footer>
+        <p>© 2026 Hotel Para Cachorros - Todos os direitos reservados</p>
+    </footer>
+</body>
+</html>
